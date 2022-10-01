@@ -3,7 +3,6 @@
 version: '3.1'
 
 services:
-
   mongo-db:
     image: mongo
     environment:
@@ -33,3 +32,19 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo-db:27017/
     depends_on:
       - mongo-seed
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-fastapi-app
+    environment:
+      MONGO_URI: mongodb://user:user@mongo-db:27017/main
+      DB_NAME: main
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongo-express
+    volumes:
+      - .:/usr/src/app
+    command: "uvicorn main:app --reload --host 0.0.0.0 --port 8000"
