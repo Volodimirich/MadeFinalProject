@@ -1,0 +1,35 @@
+# root user: root/example
+# For use: bd - main; user - user/user
+version: '3.1'
+
+services:
+
+  mongo-db:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./test/scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+
+  mongo-seed:
+    image: mongo
+    links:
+      - mongo-db
+    command: "mongoimport -h mongo-db -u user -p user -d main /opt/data/dblpv13.jsonl"
+    volumes:
+      - ./test/data:/opt/data
+    depends_on:
+      - mongo-db
+
+  mongo-express:
+    image: mongo-express
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo-db:27017/
+    depends_on:
+      - mongo-seed
