@@ -15,7 +15,7 @@ else
 fi
 
 apt-get update
-apt-get install apt-get install p7zip-full
-7z x dblp.v13.7z -o../../dataset/
-rm dblp.v13.7z
+apt-get install p7zip-full
+7z x dblp.v13.7z -o ../../dataset/
+#rm dblp.v13.7z
 sed -i -E "s/NumberInt\(([0-9]+)\)/\1/" ../../dataset/dblpv13.json
