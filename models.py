@@ -54,6 +54,7 @@ class Paper(BaseModel):
     venue: Optional[Venue]
     year: int
     keywords: Optional[List[str]]
+    fos: Optional[List[str]]
     n_citation: Optional[int]
     page_start: Optional[str]
     page_end: Optional[str]
@@ -104,6 +105,19 @@ class Paper(BaseModel):
                     "visual experience",
                     "multi-faceted granular complexity",
                     "stylized natural element",
+                ],
+                "fos": [
+                    "Agronomy",
+                    "Moisture",
+                    "Hydrology",
+                    "Environmental science",
+                    "Dry weight",
+                    "Water content",
+                    "Stomatal conductance",
+                    "Transpiration",
+                    "Irrigation",
+                    "Soil water",
+                    "Canopy",
                 ],
                 "n_citation": 0,
                 "page_start": "8",
