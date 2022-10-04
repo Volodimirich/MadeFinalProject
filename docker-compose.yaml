@@ -66,7 +66,7 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./docker_files/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker_files/dashboard/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
 
@@ -80,9 +80,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./docker_files/monitoring/datasource.yml:/etc/grafana/provisioning/datasource.yml
+      - ./docker_files/dashboard/datasource.yml:/etc/grafana/provisioning/datasource.yml
     env_file:
-      - docker_files/monitoring/config.monitoring
+      - docker_files/dashboard/config.monitoring
 
   mongodb-exporter:
     image: ssheehy/mongodb-exporter:latest

@@ -67,7 +67,7 @@ The following command is required to verify access to the database:
 `http://127.0.0.1:9090/targets?search=`. After redirecting you should
  check availability of `http://mongodb-exporter:9216/metrics`.
 
-For monitoring Graphana was chosen. To use it you should do next steps:
+As a dashboard Grafana was chosen. To use it you should do next steps:
 1. Go to `http://127.0.0.1:3000` (login: _admin_, password: _pass@123_).
 2. In opened window go to Datasources -> Prometheus. In the new window set next url - `http://prometheus:9090`. After 
 that press on **Save & test** button and after the success message appeared press on **Back** button.
