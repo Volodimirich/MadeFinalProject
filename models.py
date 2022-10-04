@@ -40,8 +40,8 @@ class Author(BaseModel):
 
 class Venue(BaseModel):
     raw: Optional[str] = None
-    raw_zh: Optional[None] = None
-    publisher: Optional[None] = None
+    raw_zh: Optional[str] = None
+    publisher: Optional[str] = None
     type: Optional[int] = None
 
 
@@ -51,9 +51,10 @@ class Paper(BaseModel):
     )
     title: str
     authors: Optional[List[Author]]
-    venue: Venue
+    venue: Optional[Venue]
     year: int
-    keywords: List[str]
+    keywords: Optional[List[str]]
+    fos: Optional[List[str]]
     n_citation: Optional[int]
     page_start: Optional[str]
     page_end: Optional[str]
@@ -104,6 +105,19 @@ class Paper(BaseModel):
                     "visual experience",
                     "multi-faceted granular complexity",
                     "stylized natural element",
+                ],
+                "fos": [
+                    "Agronomy",
+                    "Moisture",
+                    "Hydrology",
+                    "Environmental science",
+                    "Dry weight",
+                    "Water content",
+                    "Stomatal conductance",
+                    "Transpiration",
+                    "Irrigation",
+                    "Soil water",
+                    "Canopy",
                 ],
                 "n_citation": 0,
                 "page_start": "8",
