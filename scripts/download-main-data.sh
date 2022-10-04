@@ -21,7 +21,9 @@ fi
 
 if ! [ -f "${MADE_PATH}/data/dblp.v13.7z" ]; then
     echo "${GREEN} Downloading archive to ${MADE_PATH}/data/dblp.v13.7z... ${NC}"
-    wget https://originalstatic.aminer.cn/misc/dblp.v13.7z --output-file=${MADE_PATH}/data/dblp.v13.7z
+    pip install gdown
+    gdown "https://drive.google.com/file/d/1ge2cQ1HTriGE-LjNe5LqEvlpCMAMJNAa/view?usp=sharing" -O ${MADE_PATH}/data/dblp.v13.7z
+    # wget https://originalstatic.aminer.cn/misc/dblp.v13.7z --output-file=${MADE_PATH}/data/dblp.v13.7z
 fi
 
 echo "${GREEN} Unzip archive... ${NC}"

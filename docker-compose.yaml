@@ -66,12 +66,9 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker_files/dashboard/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
-    networks:
-      example-network:
-        ipv4_address: 172.16.238.11
 
   grafana:
     image: grafana/grafana:latest
@@ -83,18 +80,16 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./datasource.yml:/etc/grafana/provisioning/datasource.yml
+      - ./docker_files/dashboard/datasource.yml:/etc/grafana/provisioning/datasource.yml
     env_file:
-      - ./config.monitoring
-    networks:
-      example-network:
-        ipv4_address: 172.16.238.12
+      - docker_files/dashboard/config.monitoring
 
-networks:
-  example-network:
-    name: example-network
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.238.0/24
+  mongodb-exporter:
+    image: ssheehy/mongodb-exporter:latest
+    ports:
+      - 9216:9216
+    environment:
+      MONGODB_URI: 'mongodb://mongodb_exporter:s3cr3tpassw0rd@mongo-db:27017/main?sslmode=disable'
+    links:
+      - mongo-db
+      - prometheus
