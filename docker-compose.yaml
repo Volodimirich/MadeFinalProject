@@ -9,17 +9,27 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./test/scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+      - ./scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
 
-  mongo-seed:
+  mongo-test-seed:
     image: mongo
     links:
       - mongo-db
-    command: "mongoimport -h mongo-db -u user -p user -d main /opt/data/dblpv13.jsonl"
+    command: "mongoimport -h mongo-db -u user -p user -d test /opt/data/dblpv13.jsonl"
     volumes:
       - ./test/data:/opt/data
     depends_on:
       - mongo-db
+
+  mongo-main-seed:
+    image: mongo
+    links:
+      - mongo-db
+    command: "mongoimport -h mongo-db -u user -p user -d main /opt/data/dblpv13.json --jsonArray"
+    volumes:
+      - ./data:/opt/data
+    depends_on:
+      - mongo-test-seed
 
   mongo-express:
     image: mongo-express
@@ -31,7 +41,8 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo-db:27017/
     depends_on:
-      - mongo-seed
+      - mongo-test-seed
+
   app:
     build:
       context: .
@@ -55,7 +66,7 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker_files/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
 
@@ -69,9 +80,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./datasource.yml:/etc/grafana/provisioning/datasource.yml
+      - ./docker_files/monitoring/datasource.yml:/etc/grafana/provisioning/datasource.yml
     env_file:
-      - ./config.monitoring
+      - docker_files/monitoring/config.monitoring
 
   mongodb-exporter:
     image: ssheehy/mongodb-exporter:latest

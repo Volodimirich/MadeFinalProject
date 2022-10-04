@@ -40,8 +40,8 @@ class Author(BaseModel):
 
 class Venue(BaseModel):
     raw: Optional[str] = None
-    raw_zh: Optional[None] = None
-    publisher: Optional[None] = None
+    raw_zh: Optional[str] = None
+    publisher: Optional[str] = None
     type: Optional[int] = None
 
 
@@ -51,9 +51,9 @@ class Paper(BaseModel):
     )
     title: str
     authors: Optional[List[Author]]
-    venue: Venue
+    venue: Optional[Venue]
     year: int
-    keywords: List[str]
+    keywords: Optional[List[str]]
     n_citation: Optional[int]
     page_start: Optional[str]
     page_end: Optional[str]
