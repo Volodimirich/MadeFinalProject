@@ -40,9 +40,9 @@ We found the following fields and data models useful.
 |---|---|---|
 | title | str | paper name |
 | authors | Optional[List[Author]] | lift of authors |
-| venue | Venue | paper venue |
+| venue | Optional[Venue] | paper venue |
 | year | int | year of writing |
-| keywords | List[str] | list of keywords for the paper |
+| keywords | Optional[List[str]] | list of keywords for the paper |
 | n_citation | Optional[int] | citation count |
 | lang | Optional[str] | paper language |
 | doi | Optional[str] | paper doi |
@@ -50,8 +50,9 @@ We found the following fields and data models useful.
 
 ## Usage
 
-1. `git clone https://github.com/Volodimirich/MadeFinalProject.git && cd MadeFinalProject`
-2. `docker-compose up app`
+1. `git clone https://github.com/Volodimirich/MadeFinalProject.git`
+2. `MADE_PATH=${PWD}/MadeFinalProject ./MadeFinalProject/scripts/download-main-data.sh` for downloading and processing dataset (~11min duration)
+3. `cd MadeFinalProject && docker-compose up` and wait until `mongo-main-seed` containter complete import (~12min duration)
 
 - `http://127.0.0.1:8000/` get hello;
 - `http://127.0.0.1:8000/papers` get all papers;
