@@ -53,7 +53,13 @@ We found the following fields and data models useful.
 
 1. `git clone https://github.com/Volodimirich/MadeFinalProject.git`
 2. `MADE_PATH=${PWD}/MadeFinalProject ./MadeFinalProject/scripts/download-main-data.sh` for downloading and processing dataset (~11min duration)
-3. `cd MadeFinalProject && docker-compose up` and wait until `mongo-main-seed` containter complete import (~12min duration)
+3. `cd MadeFinalProject`
+4. Possible runs:
+  - `docker-compose up app db test-seed` run app with import test dataset;
+  - `docker-compose up app db main-seed` run app with import main dataset (need run 2. script);
+  - add `mongo-express` to run admin interface;
+  - add `grafana` to run monitoring.
+
 
 - `http://127.0.0.1:8000/` get hello;
 - `http://127.0.0.1:8000/papers` get all papers;

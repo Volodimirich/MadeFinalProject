@@ -14,21 +14,21 @@ if ! [[ -d "${MADE_PATH}/data" ]]; then
     exit 1
 fi
 
-if [ -f "${MADE_PATH}/data/dblpv13.json" ]; then
+if [ -f "${MADE_PATH}/data/dblpv13.jsonl" ]; then
     echo "${GREEN} Dataset's already downloaded ${NC}"
     exit 0
 fi
 
-if ! [ -f "${MADE_PATH}/data/dblp.v13.7z" ]; then
+if ! [ -f "${MADE_PATH}/data/dblpv13.zip" ]; then
     echo "${GREEN} Downloading archive to ${MADE_PATH}/data/dblp.v13.7z... ${NC}"
     pip install gdown
-    gdown "https://drive.google.com/uc?id=17H8GWN0rk2nAP1LTbMXfppPtuI1iPxU2&export=download" -O ${MADE_PATH}/data/dblp.v13.7z
+    gdown "https://drive.google.com/uc?id=1-Go0pdM_rXjwi2OaIj7tJ7ZjifjLSF43&export=download" -O ${MADE_PATH}/data/dblpv13.zip
     # wget https://originalstatic.aminer.cn/misc/dblp.v13.7z --output-file=${MADE_PATH}/data/dblp.v13.7z
 fi
 
 echo "${GREEN} Unzip archive... ${NC}"
 
-REQUIRED_PKG="p7zip-full"
+REQUIRED_PKG="unzip"
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
 echo Checking for $REQUIRED_PKG: $PKG_OK
 if [ "" = "$PKG_OK" ]; then
@@ -36,9 +36,6 @@ if [ "" = "$PKG_OK" ]; then
   sudo apt-get --yes install $REQUIRED_PKG
 fi
 
-7z x ${MADE_PATH}/data/dblp.v13.7z -o${MADE_PATH}/data/
-
-echo "${GREEN} Final fixing dataset... ${NC}"
-sed -i -E "s/NumberInt\(([0-9]+)\)/\1/" ${MADE_PATH}/data/dblpv13.json
+unzip ${MADE_PATH}/data/dblpv13.zip -d ${MADE_PATH}/data/
 
 echo "${GREEN} End. ${NC}"
