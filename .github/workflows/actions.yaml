@@ -1,0 +1,34 @@
+name: Pytest and flake8
+
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker-compose up
+      env:
+        COMPOSE_INTERACTIVE_NO_CLI: 1
+      run: |
+        docker-compose up -d app db test-seed
+    - name: Check running containers
+      run: |
+        docker-compose ps -a
+    - name: Check logs
+      run: |
+        docker-compose logs app
+    - name: Test with flake8
+      env:
+        COMPOSE_INTERACTIVE_NO_CLI: 1
+      run: |
+        docker-compose exec -T app flake8 --max-line-length=88
+    - name: Test with pytest
+      env:
+        COMPOSE_INTERACTIVE_NO_CLI: 1
+      run: |
+        docker-compose exec -T app pytest
