@@ -135,7 +135,7 @@ class Paper(BaseModel):
                     "db/conf/siggraph/siggraph2009festival.html#Mitchell09",
                     "https://doi.org/10.1145/1596685.1596687",
                 ],
-                "abstract": '"2BTextures", a two-movement audio/visual experience, leads viewers through abstract environments influenced by nature and life. This integrated journey temporally explores the multi-faceted granular complexity inherent in its sonic and visual source material. By fragmenting and simulating stylized natural elements, the artists delve into the intricate detail found in minute sounds and particulated images. As each movement unfolds, viewers traverse a macro-landscape or shift their focus to micro-elements.',
+                "abstract": '"2BTextures", a two-movement audio/visual experience, leads viewers through abstract environments influenced by nature and life. This integrated journey temporally explores the multi-faceted granular complexity inherent in its sonic and visual source material. By fragmenting and simulating stylized natural elements, the artists delve into the intricate detail found in minute sounds and particulated images. As each movement unfolds, viewers traverse a macro-landscape or shift their focus to micro-elements.',  # noqa: E501
             }
         }
 

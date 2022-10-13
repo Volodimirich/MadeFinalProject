@@ -17,7 +17,7 @@ services:
       - db
     command: "mongoimport -h db -u user -p user -d main /opt/data/dblpv13.jsonl"
     volumes:
-      - ./test/data:/opt/data
+      - ./test-data:/opt/data
     depends_on:
       - db
 
@@ -44,8 +44,9 @@ services:
       - db
 
   app:
+    container_name: app
     build:
-      context: ./src
+      context: ./app
       dockerfile: Dockerfile
     image: my-fastapi-app
     environment:
@@ -56,8 +57,8 @@ services:
     depends_on:
       - db
     volumes:
-      - ./src:/usr/src/app
-    command: "uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+      - ./app:/usr/src/app
+    command: "uvicorn src.main:app --reload --host 0.0.0.0 --port 8000"
 
   prometheus:
     image: prom/prometheus:latest

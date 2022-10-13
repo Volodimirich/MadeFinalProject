@@ -49,7 +49,7 @@ We found the following fields and data models useful.
 | doi | Optional[str] | paper doi |
 | abstact | Optional[str] | paper abstract |
 
-## Usage
+## Installation
 
 1. `git clone https://github.com/Volodimirich/MadeFinalProject.git`
 2. `MADE_PATH=${PWD}/MadeFinalProject ./MadeFinalProject/scripts/download-main-data.sh` for downloading and processing dataset (~11min duration)
@@ -61,7 +61,9 @@ We found the following fields and data models useful.
   - add `grafana` to run monitoring.
 
 
-- `http://127.0.0.1:8000/` get hello;
+## Usage
+
+- `http://127.0.0.1:8000/hello` get hello;
 - `http://127.0.0.1:8000/papers` get all papers;
 - `http://127.0.0.1:8000/docs` `Swagger UI` with other API methods.
 
