@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+<title>Home page</title>
+{% endblock %}
+
+{% block content %}
+{% with msg=msg %}
+{% include "alerts.html" %}
+{% endwith %}
+
+<div class="container">
+  <br>
+  <h1>Hello!</h1>
+  <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Papers</th>
+        <td>{{ papers_count }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Users</th>
+        <td>{{ users_count }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
