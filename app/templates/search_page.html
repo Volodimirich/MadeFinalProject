@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+<title>Search</title>
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+  <div class="row">
+    <h5 class="display-5">Search Papers</h5>
+    <div class="text-danger font-weight-bold">
+      {% for error in errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row my-5">
+    <form action="/papers/search">
+      <div class="mb-3">
+        <label>Paper title</label>
+        <input type="text" name="title" placeholder="2BTextures" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label>Year</label>
+        <input type="text" name="year" placeholder="2009" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label>Author</label>
+        <input type="text" name="author" placeholder="Bonnie" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label>Venue</label>
+        <input type="text" name="venue" placeholder="SIGGRAPH" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

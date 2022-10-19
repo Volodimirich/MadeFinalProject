@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+<title>Papers</title>
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-5">Selected Papers</h1>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    {% for paper in papers %}
+    <div class="col-lg-4 col-md-3 col-sm-10 mr-auto">
+      {% with obj=paper %}
+      {% include "paper.html" %}
+      {% endwith %}
+
+      {% if loop.index %3 %}
+    </div>
+    {% else %}
+  </div>
+</div><br>
+<div class="row">
+  {% endif %}
+  {% endfor %}
+</div>
+</div>
+{% endblock %}
