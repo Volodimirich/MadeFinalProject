@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block content %}
+{% with msg=msg %}
+{% include "alerts.html" %}
+{% endwith %}
 <br>
 <div class="container">
   <div class="row">

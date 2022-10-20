@@ -35,6 +35,19 @@
         <label>Venue</label>
         <input type="text" name="venue" placeholder="SIGGRAPH" class="form-control">
       </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Tag</label>
+        </div>
+
+        <select class="custom-select" id="inputGroupSelect01" name="tag">
+          <option selected value="">Any...</option>
+          {% for tag_num,tag_str in tags.items() %}
+          <option value={{tag_num}}>{{tag_str}}</option>
+          {% endfor %}
+        </select>
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>

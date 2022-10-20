@@ -31,6 +31,16 @@ services:
     depends_on:
       - db
 
+  tag-seed:
+    image: mongo
+    links:
+      - db
+    command: "mongoimport -h db -u user -p user -d main -c tags --type csv --headerline /opt/data/id_class.csv"
+    volumes:
+      - ./data:/opt/data
+    depends_on:
+      - db
+
   mongo-express:
     image: mongo-express
     restart: unless-stopped

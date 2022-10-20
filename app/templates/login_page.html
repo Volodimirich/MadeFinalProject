@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block content %}
+{% with msg=msg %}
+{% include "alerts.html" %}
+{% endwith %}
 <br>
 <div class="container">
   <div class="row">
@@ -25,7 +28,7 @@
       </div>
       <div class="mb-3">
         <label>Password</label>
-        <input type="password" required placeholder="Choose a secure password" name="password" class="form-control">
+        <input type="password" required placeholder="password" name="password" class="form-control">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
