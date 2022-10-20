@@ -1,10 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 
 from src.db import db
 from src.auth.router import router as user_router
 from src.papers.router import router as papers_router
 from src.base_router import router as base_router
+from src.security import NotAuthenticatedException
+
 
 app = FastAPI()
 app.include_router(user_router)
@@ -21,3 +24,8 @@ def startup_db_client():
 @app.on_event("shutdown")
 def shutdown_db_client():
     db.close()
+
+
+@app.exception_handler(NotAuthenticatedException)
+def auth_exception_handler(request: Request, _: NotAuthenticatedException):
+    return RedirectResponse(url="/auth/login")

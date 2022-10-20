@@ -1,5 +1,4 @@
 # MadeFinalProject
-Made final project
 
 ## Why did we choose MongoDB?
 
@@ -38,6 +37,7 @@ We found the following fields and data models useful.
 
 | Field name | Type | Meaning |
 |---|---|---|
+| _id | ObjectId | paper id |
 | title | str | paper name |
 | authors | Optional[List[Author]] | lift of authors |
 | venue | Optional[Venue] | paper venue |
@@ -49,23 +49,29 @@ We found the following fields and data models useful.
 | doi | Optional[str] | paper doi |
 | abstact | Optional[str] | paper abstract |
 
+### Paper tags model
+
+| Field name | Type | Meaning |
+|---|---|---|
+| _id | ObjectId | paper id |
+| tag | int | paper tag |
+
 ## Installation
 
 1. `git clone https://github.com/Volodimirich/MadeFinalProject.git`
 2. `MADE_PATH=${PWD}/MadeFinalProject ./MadeFinalProject/scripts/download-main-data.sh` for downloading and processing dataset (~11min duration)
 3. `cd MadeFinalProject`
 4. Possible runs:
-  - `docker-compose up app db test-seed` run app with import test dataset;
-  - `docker-compose up app db main-seed` run app with import main dataset (need run 2. script);
-  - add `mongo-express` to run admin interface;
+  - `docker-compose up app db test-seed tag-seed` run app with import test dataset;
+  - `docker-compose up app db main-seed tag-seed` run app with import main dataset (need run 2. script);
+  - add `mongo-express` to run mongodb web interface;
   - add `grafana` to run monitoring.
 
 
 ## Usage
 
-- `http://127.0.0.1:8000/hello` get hello;
-- `http://127.0.0.1:8000/papers` get all papers;
-- `http://127.0.0.1:8000/docs` `Swagger UI` with other API methods.
+- `http://127.0.0.1:8000` Homepage;
+- `http://127.0.0.1:8000/docs` `Swagger UI` API methods.
 
 ## Monitoring and logging
 Prometheus was chosen as the monitoring system.
