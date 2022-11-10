@@ -6,8 +6,8 @@ from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 
 REAL_TEST_SIZE = 0.2
-PATH_TRAIN = 'train_test/train.csv'
-PATH_TEST = 'train_test/test.csv'
+PATH_TRAIN = 'data/raw_train.csv'
+PATH_TEST = 'data/raw_test.csv'
 
 
 def clean_leak(df_test, df_auth) -> Tuple[pd.DataFrame, pd.DataFrame]:
