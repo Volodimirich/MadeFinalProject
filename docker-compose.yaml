@@ -41,6 +41,16 @@ services:
     depends_on:
       - db
 
+  rec-data-seed:
+    image: mongo
+    links:
+      - db
+    command: "mongoimport -h db -u user -p user -d main -c author2author --type csv --headerline /opt/data/sim_matrix_class3.csv"
+    volumes:
+      - ./data:/opt/data
+    depends_on:
+      - db
+
   mongo-express:
     image: mongo-express
     restart: unless-stopped

@@ -62,8 +62,8 @@ We found the following fields and data models useful.
 2. `MADE_PATH=${PWD}/MadeFinalProject ./MadeFinalProject/scripts/download-main-data.sh` for downloading and processing dataset (~11min duration)
 3. `cd MadeFinalProject`
 4. Possible runs:
-  - `docker-compose up app db test-seed tag-seed` run app with import test dataset;
-  - `docker-compose up app db main-seed tag-seed` run app with import main dataset (need run 2. script);
+  - `docker-compose up app db test-seed tag-seed rec-data-seed` run app with import test dataset;
+  - `docker-compose up app db main-seed tag-seed rec-data-seed` run app with import main dataset (need run 2. script);
   - add `mongo-express` to run mongodb web interface;
   - add `grafana` to run monitoring.
 

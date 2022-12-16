@@ -12,10 +12,16 @@ router = APIRouter(prefix="", tags=["users"])
 def index(request: Request):
     papers_count: int = db.papers_collection.count_documents({})
     users_count: int = db.users_collection.count_documents({})
+    authors_count: int = db.authors_collection.count_documents({})
 
     return templates.TemplateResponse(
         "homepage.html",
-        {"request": request, "papers_count": papers_count, "users_count": users_count},
+        {
+            "request": request,
+            "papers_count": papers_count,
+            "users_count": users_count,
+            "authors_count": authors_count,
+        },
     )
 
 

@@ -1,6 +1,7 @@
 # dataset files
 dblp.v13.7z
 dblpv13.json
+dblpv13.jsonl_full
 
 # old dataset files
 dblpv13.zip

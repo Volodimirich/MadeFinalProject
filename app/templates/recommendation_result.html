@@ -2,7 +2,7 @@
 
 
 {% block title %}
-<title>Statistic </title>
+<title>Authors </title>
 {% endblock %}
 
 {% block content %}
@@ -10,15 +10,15 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h1 class="display-5">Papers statistic</h1>
+      <h1 class="display-5">Recommendations for {{target_author}}</h1>
     </div>
   </div>
   <br>
   <div class="row">
-    {% for paper in papers %}
+    {% for author in authors %}
     <div class="col-lg-4 col-md-3 col-sm-10 mr-auto">
-      {% with obj=paper %}
-      {% include "stat_data.html" %}
+      {% with obj=author %}
+      {% include "rec_item.html" %}
       {% endwith %}
       {% if loop.index %3 %}
     </div>
