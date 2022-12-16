@@ -4,15 +4,7 @@ from fastapi.encoders import jsonable_encoder
 from bson import ObjectId
 
 from src.base_models import PydanticObjectId
-
-
-class Author(BaseModel):
-    id: Optional[PydanticObjectId] = Field(
-        default_factory=PydanticObjectId, alias="_id"
-    )
-    name: str = ""
-    org: Optional[str] = None
-    gid: Optional[str] = None
+from src.authors.models import Author
 
 
 class Venue(BaseModel):

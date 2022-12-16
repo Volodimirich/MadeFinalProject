@@ -18,7 +18,7 @@ from src.auth.models import User
 from src.papers.models import Paper, UpdatePaper
 from src.utils import PrettyJSONResponse
 from src.tags_predict.tags2string import tags2string
-from collections import defaultdict, Counter
+from collections import Counter
 import statistics
 
 templates = Jinja2Templates(directory="templates")
@@ -48,13 +48,12 @@ def list_papers(limit: int = 100, page: int = 1):
     return papers
 
 
-#Get statistic (I am sorry again)
+# Get statistic
 @router.get(
-        "/statistic",
+    "/statistic",
     response_description="Data statistic",
-    response_model=List[Paper],)
-
-
+    response_model=List[Paper],
+)
 def data_statistic(request: Request):
     pipeline = [{"$sort": {"n_citation": -1}}]
     citations_values = []
@@ -62,52 +61,32 @@ def data_statistic(request: Request):
     top_fos = Counter()
     for paper in db.papers_collection.aggregate(pipeline=pipeline):
         if "n_citation" in paper:
-            citations_values.append(paper['n_citation'])
+            citations_values.append(paper["n_citation"])
         else:
             citations_values.append(0)
 
         if "year" in paper:
-            year_values.append(paper['year'])
+            year_values.append(paper["year"])
 
-        if 'fos' in paper:
-            top_fos += Counter(paper['fos'])
+        if "fos" in paper:
+            top_fos += Counter(paper["fos"])
 
-    data = [{'text': 'Citation mean value', 'value': statistics.mean(citations_values)},
-            {'text': 'Citation median value', 'value': statistics.median(citations_values)},
-            {'text': 'Year mean value', 'value': statistics.mean(year_values)},
-            {'text': 'Year median value', 'value': statistics.median(year_values)},
-            {'text': 'FOS most common word', 'value': top_fos.most_common()[0][0]},
-            {'text': 'Amount of top common word usage', 'value': top_fos.most_common()[0][1]}]
+    data = [
+        {"text": "Citation mean value", "value": statistics.mean(citations_values)},
+        {"text": "Citation median value", "value": statistics.median(citations_values)},
+        {"text": "Year mean value", "value": statistics.mean(year_values)},
+        {"text": "Year median value", "value": statistics.median(year_values)},
+        {"text": "FOS most common word", "value": top_fos.most_common()[0][0]},
+        {
+            "text": "Amount of top common word usage",
+            "value": top_fos.most_common()[0][1],
+        },
+    ]
     return templates.TemplateResponse(
         "statistic.html",
         {"request": request, "papers": data},
     )
 
-
-# Sort APIs (I am sorry about this code :/)
-@router.get(
-        "/sort",
-    response_description="Author cite top",
-    response_model=List[Paper],)
-def author_sort(
-        request: Request):
-    pipeline = [{"$sort": {"n_citation": -1}}]
-    author_dict = defaultdict(int)
-    for paper in db.papers_collection.aggregate(pipeline=pipeline):
-        print(paper)
-        if "authors" in paper:
-            for row in paper["authors"]:
-                amount = paper["n_citation"] if "n_citation" in paper else 0
-                author_dict[row["name"]] += amount
-
-    data = list(author_dict.items())
-    data.sort(key=lambda x:x[1], reverse=True)
-    for pos, element in enumerate(data):
-        data[pos] = {'author': element[0], 'citations': element[1]}
-    return templates.TemplateResponse(
-        "sort.html",
-        {"request": request, "papers": data},
-    )
 
 @router.get(
     "/search",

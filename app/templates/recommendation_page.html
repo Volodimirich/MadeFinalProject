@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+<title>Recommendation</title>
+{% endblock %}
+
+{% block content %}
+{% with msg=msg %}
+{% include "alerts.html" %}
+{% endwith %}
+<br>
+<div class="container">
+  <div class="row">
+    <h5 class="display-5">Authors recommendation</h5>
+    <div class="text-danger font-weight-bold">
+      {% for error in errors %}
+      <li>{{error}}</li>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row my-5">
+    <form action="/authors/recommend">
+      <div class="mb-3">
+        <label>Author</label>
+        <input type="text" name="author" placeholder="Chris C. N. Chu" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
